@@ -412,6 +412,7 @@ export function Exercise({
                 j++;
             } 
         }
+        highlightMeasures(wrongList);
 
         // no missed answers in correct array and selected array is the same length as the original correct array: all good!
         if(tmpCorrect.length === 0 && tmpSelected.length === correctAnswers.length){
@@ -476,6 +477,20 @@ export function Exercise({
         // sets customFeedback to copy of feedback array, to eventually be mapped into a list on the page
         setCustomFeedback([...feedback]);
     }
+    // Function to highlight wrong measures
+    const highlightWrongMeasures = (wrongList) => {
+        wrongList.forEach(note => {
+            const measurePos = Number(note.getAttribute("measurePos"));
+            const staffPos = Number(note.getAttribute("staffPos"));
+
+            // Assuming you have a method to get the visual representation of the measure
+            const measureElement = document.querySelector(`.measure[data-measure="${measurePos}"][data-staff="${staffPos}"]`);
+
+            if (measureElement) {
+                measureElement.classList.add('highlight'); // Add a CSS class for highlighting
+        }
+    });
+}
 
 
     //runs when save note feedback button is pushed on mng view: saves individual note feedback into the selected note
